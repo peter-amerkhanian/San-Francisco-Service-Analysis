@@ -19,17 +19,19 @@ git push
 ```
 
 ## Project Description:
-Forecast the need for public services – fire, police, and 311 calls for service – so that a city can more accurately prepare for service delivery. We will use the data as a time series and will aim to produce forecasts that are accurate at one week.
-Infer patterns in historical service allocation and quality. We will predict the response time for each type of call for service, and examine how this varies with respect to various geographic and demographic covariates. We will also examine how service volume per-capita varies across locations.
+Forecast the need for public services – ~~fire, police,~~ and 311 calls for service – so that a city can more accurately prepare for service delivery. We will use the data as a time series and will aim to produce forecasts that are accurate at one week.  
+
+Infer patterns in historical service allocation and quality. ~~We will predict the response time for each type of call for service~~, and examine how this varies with respect to various geographic and demographic covariates. We will also examine how service volume per-capita varies across locations.
 
 
 ## Methods:
 - Linear Regression, trained on time series lags (likely at the hour), weather patterns (likely at the hour), and city economic conditions (likely at the year or month).
-- Gradient Boosting, specifically extreme gradient boosting (XGBoost)
+- ARIMA
+- ~~Gradient Boosting, specifically extreme gradient boosting (XGBoost)~~
 - Recurrent Neural Network
 
 ## Methodological questions:
-- Will deep learning outperform simpler models like linear regression and gradient boosted regression trees for this task?
+- Will deep learning outperform simpler models like linear regression and ~~gradient boosted regression trees~~ for this task?
 - Is deep learning necessary for achieving our goal? This question is motivated by a working paper by (Elsayed et. al. 2021)
 - Can deep learning and ensemble methods be used for effective inference?
 
