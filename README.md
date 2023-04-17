@@ -8,6 +8,15 @@
 - SF 311 calls for service (2008-2023)
 - Daily Weather (2015-2023)
 - Census American Community Survey (2015-2023)
+## WORKFLOW
+
+```
+git pull
+# start working
+git add .
+git commit -m "your message here"
+git push
+```
 
 ## Project Description:
 Forecast the need for public services – fire, police, and 311 calls for service – so that a city can more accurately prepare for service delivery. We will use the data as a time series and will aim to produce forecasts that are accurate at one week.
