@@ -14,18 +14,18 @@
   - We have successfully spatially merged every call's coordinate (longitude, latitude) with their parent census tract and its accompanying demographic profile.
 
 ## Questions
-Project title / Motivation
-Data details:
-Summary statistics
-Challenges
-Data augmentation ( if planned)
-EDA / Data preprocessing ( if done)
-ML pipeline setup
-Train test split
-Choice of models and baselines
-Evaluation metrics
-Plan for the rest of the project and task distributions
-Any misc item that you want to discuss
+- Project title / Motivation
+- Data details:
+- Summary statistics
+- Challenges
+- Data augmentation ( if planned)
+- EDA / Data preprocessing ( if done)
+- ML pipeline setup
+- Train test split
+- Choice of models and baselines
+- Evaluation metrics
+- Plan for the rest of the project and task distributions
+- Any misc item that you want to discuss
 ## WORKFLOW
 
 ```
@@ -45,8 +45,9 @@ We will also examine how the per-capita quantity of street cleaning services del
 ## Methods:
 ### Inference
 - We will be interested in how various neighborhood level socio-demographic factors covary with calls per capita. For example, in examining how racial demographics covary with calls, we would specify the following:  
-$(\frac{\text{311 Call Count}}{\text{Population}})_n = \beta_0 + \beta_1(\text{Percent Nonwhite}_n) + \epsilon$
-We will examine model features, such as $R^2$, the magnitude of $\beta_1$, etc., to gauge the social equity of current service allocation. With this in mind, we will have an idea of whether our forecasting models may scale inequity.
+$(\frac{\text{311 Call Count}}{\text{Population}})_n = \beta_0 + \beta_1(\text{Percent Nonwhite}_n) + \epsilon$  
+
+- We will examine model features, such as $R^2$, the magnitude of $\beta_1$, etc., to gauge the social equity of current service allocation. With this in mind, we will have an idea of whether our forecasting models may scale inequity.
 ### Forecasting
 - ARIMA
 - Recurrent Neural Network
