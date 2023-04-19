@@ -70,3 +70,6 @@ All models will be **evaluated according to their Root Mean Square Error**, give
 ## Deliverables:
 - Phase 1 (by April 15th): Data gathered from various sources into a single dataset, imputation of missing data, feature engineering, exploratory data analysis
 - Phase 2 (by May 3rd): Forecasting models trained (regression, gradient boosting, neural network), inference conducted, writeup completed
+
+## Preliminary ARIMA results:
+<img src="figures/ARIMA_autocorrelation.png" width="350px"> </img>
