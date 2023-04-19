@@ -7,7 +7,7 @@
 **Datasets**:
 - SF 311 calls for service (2008-2023)
   - n=2.28 million 
-  - Geo-spatial distribution:<img src="figures/311_map.png" width="500px"> </img>
+  - Geo-spatial distribution:<img src="figures/311_map.png" width="350px"> </img>
 - Daily Weather (2015-2023)
   - *We haven't downloaded this yet*
 - Census American Community Survey (2015-2023) at the census tract level
