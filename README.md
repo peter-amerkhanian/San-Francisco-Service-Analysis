@@ -6,8 +6,26 @@
 
 **Datasets**:
 - SF 311 calls for service (2008-2023)
+  - n=2.28 million 
+  - Geo-spatial distribution:<img src="figures/311_map.png" width="500px"> </img>
 - Daily Weather (2015-2023)
-- Census American Community Survey (2015-2023)
+  - *We haven't downloaded this yet*
+- Census American Community Survey (2015-2023) at the census tract level
+  - We have successfully spatially merged every call's coordinate (longitude, latitude) with their parent census tract and its accompanying demographic profile.
+
+## Questions
+Project title / Motivation
+Data details:
+Summary statistics
+Challenges
+Data augmentation ( if planned)
+EDA / Data preprocessing ( if done)
+ML pipeline setup
+Train test split
+Choice of models and baselines
+Evaluation metrics
+Plan for the rest of the project and task distributions
+Any misc item that you want to discuss
 ## WORKFLOW
 
 ```
@@ -32,6 +50,16 @@ We will examine model features, such as $R^2$, the magnitude of $\beta_1$, etc.,
 ### Forecasting
 - ARIMA
 - Recurrent Neural Network
+
+These models will be purely trained on time lags of the output (call count) and on time lags of weather.  
+
+**Train-test splits** will be made with time-series structure in mind.  
+
+**Baseline prediction** will be predicting the amount of calls that occurred the year before on any given date:  
+$\hat{Calls_{y, m, d}} = Calls_{y-1, m, d}$  
+(Where y=year, m=month, d=day)
+
+All models will be **evaluated according to their Root Mean Square Error**, given that we have a more or less continuous output.
 
 ## Methodological questions:
 - Will deep learning outperform ARIMA for this task?
