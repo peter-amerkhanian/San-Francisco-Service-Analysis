@@ -19,21 +19,24 @@ git push
 ```
 
 ## Project Description:
-Forecast the need for public services – ~~fire, police,~~ and 311 calls for service – so that a city can more accurately prepare for service delivery. We will use the data as a time series and will aim to produce forecasts that are accurate at one week.  
+We seek to forecast the hourly need for street cleaning services in San Francisco, so that the city can more accurately prepare for service delivery. We will use the data as a time series and will aim to produce forecasts that are accurate at one week.  
 
-Infer patterns in historical service allocation and quality. ~~We will predict the response time for each type of call for service~~, and examine how this varies with respect to various geographic and demographic covariates. We will also examine how service volume per-capita varies across locations.
+We will also examine how the per-capita quantity of street cleaning services delivered to different neighborhoods varies with respect to neighborhood characteristics (namely income and racial demographics). By extension, we will be able to see if our forecasting system has the risk of automating in-equitable service delivery patterns.
 
 
 ## Methods:
-- Linear Regression, trained on time series lags (likely at the hour), weather patterns (likely at the hour), and city economic conditions (likely at the year or month).
+### Inference
+- We will be interested in how various neighborhood level socio-demographic factors covary with calls per capita. For example, in examining how racial demographics covary with calls, we would specify the following:  
+$(\frac{\text{311 Call Count}}{\text{Population}})_n = \beta_0 + \beta_1(\text{Percent Nonwhite}_n) + \epsilon$
+We will examine model features, such as $R^2$, the magnitude of $\beta_1$, etc., to gauge the social equity of current service allocation. With this in mind, we will have an idea of whether our forecasting models may scale inequity.
+### Forecasting
 - ARIMA
-- ~~Gradient Boosting, specifically extreme gradient boosting (XGBoost)~~
 - Recurrent Neural Network
 
 ## Methodological questions:
-- Will deep learning outperform simpler models like linear regression and ~~gradient boosted regression trees~~ for this task?
-- Is deep learning necessary for achieving our goal? This question is motivated by a working paper by (Elsayed et. al. 2021)
-- Can deep learning and ensemble methods be used for effective inference?
+- Will deep learning outperform ARIMA for this task?
+- Is deep learning necessary for achieving our goal? 
+- Taken uncritically, would implementation of our winning forecasting model increase/maintain any inequities in service delivery patterns?
 
 ## Deliverables:
 - Phase 1 (by April 15th): Data gathered from various sources into a single dataset, imputation of missing data, feature engineering, exploratory data analysis
