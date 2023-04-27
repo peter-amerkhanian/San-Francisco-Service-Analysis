@@ -20,7 +20,7 @@ census_client = Census(api_key)
 sf_fips = '075'
 
 
-def bulk_download_311(category: str='Street and Sidewalk Cleaning'):
+def bulk_download_311(category: str = 'Street and Sidewalk Cleaning'):
     """Retrieve all 311 data for some category.
     This will download a .csv of all calls and save it
     locally. If the data has previously been retrieved,
@@ -47,9 +47,8 @@ def bulk_download_311(category: str='Street and Sidewalk Cleaning'):
     return df_cleaning
 
 
-    
-def api_query_311(query: str="service_name='Street and Sidewalk Cleaning'",
-            limit: int=1000):
+def api_query_311(query: str = "service_name='Street and Sidewalk Cleaning'",
+                  limit: int = 1000):
     """Query the 311 Socrata API for calls up to the limit
     This is good for recent calls, bad for historical.
 
@@ -69,8 +68,9 @@ def api_query_311(query: str="service_name='Street and Sidewalk Cleaning'",
     ]
     return results_df_filtered
 
+
 def get_census_data(fields, c=census_client):
-    """Retrieves 2019 5-year ACS data for San Francisco
+    """Retrieves 2019 5-year ACS data for San Francisco TRACTS
     Args:
         fields (list): list of variables to retrieve
         c (Census): an instantiated Census object
@@ -82,17 +82,44 @@ def get_census_data(fields, c=census_client):
         with open(path, 'rb') as f:
             sf_df = pickle.load(f)
     else:
-        sf_census = c.acs5.state_county_tract(fields = fields,
-                                            state_fips = states.CA.fips,
-                                            county_fips = sf_fips,
-                                            tract = "*",
-                                            year = 2019)
+        sf_census = c.acs5.state_county_tract(fields=fields,
+                                              state_fips=states.CA.fips,
+                                              county_fips=sf_fips,
+                                              tract="*",
+                                              year=2019)
         sf_df = pd.DataFrame(sf_census)
         sf_df["GEOID"] = sf_df["state"] + sf_df["county"] + sf_df["tract"]
         sf_df = sf_df.drop(["state", "county", "tract"], axis=1)
         with open(path, "wb") as f:
             pickle.dump(sf_df, f)
     return sf_df
+
+
+def get_census_data_blocks(fields, c=census_client):
+    """Retrieves 2019 5-year ACS data for San Francisco BLOCKGROUPS
+    Args:
+        fields (list): list of variables to retrieve
+        c (Census): an instantiated Census object
+    Returns:
+        pd.DataFrame: your data
+    """
+    path = "census_variables_json/sf_df_blocks.p"
+    if os.path.exists(path):
+        with open(path, 'rb') as f:
+            sf_df = pickle.load(f)
+    else:
+        sf_census = c.acs5.state_county_blockgroup(fields=fields,
+                                                   state_fips=states.CA.fips,
+                                                   county_fips=sf_fips,
+                                                   blockgroup="*",
+                                                   year=2019)
+        sf_df = pd.DataFrame(sf_census)
+        sf_df["GEOID"] = sf_df["state"] + sf_df["county"] + sf_df["tract"]
+        sf_df = sf_df.drop(["state", "county", "tract"], axis=1)
+        with open(path, "wb") as f:
+            pickle.dump(sf_df, f)
+    return sf_df
+
 
 def clean_variable_names(sf_merge, fields):
     """Clean census column names
@@ -112,14 +139,14 @@ def clean_variable_names(sf_merge, fields):
                 resp = requests.get(base_url + f"{col}.json")
                 resp_json = resp.json()
             new_label = (resp_json['label']
-            .replace(":!!", "_")
-            .replace("!!", "_")
-            .replace(":", "_")
-            .replace(" ", "_")
-            .replace("Estimate", "")
-            .strip("_")
-            .replace(",", "")
-            )
+                         .replace(":!!", "_")
+                         .replace("!!", "_")
+                         .replace(":", "_")
+                         .replace(" ", "_")
+                         .replace("Estimate", "")
+                         .strip("_")
+                         .replace(",", "")
+                         )
             with open(file_path, "w") as f:
                 json.dump(resp_json, f)
             sf_merge[new_label] = sf_merge[col]
@@ -127,6 +154,8 @@ def clean_variable_names(sf_merge, fields):
     return sf_merge
 
 # Note: Urls are from https://www2.census.gov/geo/tiger/TIGER2022/TRACT/
+
+
 def retrieve_sf_shape(url, path, fips):
     """Retrieve San Francisco County's shape data
     from the census website
@@ -137,9 +166,10 @@ def retrieve_sf_shape(url, path, fips):
         gpd.GeoDataFrame: gpd dataframe
     """
     ca_tract = gpd.read_file(url)
-    sf_county_farallon  = ca_tract[ca_tract['COUNTYFP'] == fips]
+    sf_county_farallon = ca_tract[ca_tract['COUNTYFP'] == fips]
     sf_county_farallon.to_file(path)
     return sf_county_farallon
+
 
 def open_sf_shape(url, path):
     """Open the San Francisco gpd either
@@ -159,6 +189,7 @@ def open_sf_shape(url, path):
         sf_county_farallon = retrieve_sf_shape(url, path, sf_fips)
         print("Done")
     return sf_county_farallon
+
 
 def remove_water(buffer_tracts):
     path = "sf_shapes/coastline.shp"
