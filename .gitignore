@@ -1,7 +1,12 @@
 secret.txt
+__pycache__/
 __pycache__
 .DS_Store
 .ipynb_checkpoints
+.ipynb_checkpoints/
 data/
 census_variables_json/
 sf_shapes/
+cache
+cache/
+
