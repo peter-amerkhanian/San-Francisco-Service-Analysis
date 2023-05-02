@@ -46,6 +46,20 @@ def bulk_download_311(category: str = 'Street and Sidewalk Cleaning'):
         df_cleaning.to_csv(csv_file_path)
     return df_cleaning
 
+def process_data():
+    df = bulk_download_311()
+    print("Processing data")
+    df['datetime'] = pd.to_datetime(df['Opened'], format="%m/%d/%Y %I:%M:%S %p")
+    df = df.set_index('datetime')
+    df = df[df.index < "2023-04-05"].sort_index()
+    df_hourly = df.resample('1H').count().iloc[:, 0:1]
+    df_hourly.columns = ['calls']
+    df_hourly['month'] = df_hourly.index.month
+    df_hourly['dayofweek'] = df_hourly.index.dayofweek
+    df_hourly['dayofmonth'] = df_hourly.index.day
+    df_hourly['hourofday'] = df_hourly.index.hour
+    df_hourly.reset_index().to_csv("data/processed_data.csv")
+    return df_hourly
 
 def api_query_311(query: str = "service_name='Street and Sidewalk Cleaning'",
                   limit: int = 1000):
