@@ -4,6 +4,7 @@ from census import Census
 import geopandas as gpd
 import requests
 import json
+import os
 
 
 with open('secret.txt', 'r') as f:
