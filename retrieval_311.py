@@ -38,7 +38,8 @@ def bulk_download_311(category: str = 'Street and Sidewalk Cleaning'):
 def process_data():
     df = bulk_download_311()
     print("Processing data")
-    df['datetime'] = pd.to_datetime(df['Opened'], format="%m/%d/%Y %I:%M:%S %p")
+    df['datetime'] = pd.to_datetime(df['Opened'],
+    format="%m/%d/%Y %I:%M:%S %p")
     df = df.set_index('datetime')
     df = df[df.index < "2023-04-05"].sort_index()
     df_hourly = df.resample('1H').count().iloc[:, 0:1]
