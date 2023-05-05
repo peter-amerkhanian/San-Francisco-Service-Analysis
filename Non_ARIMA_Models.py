@@ -21,7 +21,7 @@ from keras.layers import Dense, LSTM, Dropout, SimpleRNN
 from keras.regularizers import l2
 
 # %%
-df = pd.read_csv("data/processed_data.csv")
+df = pd.read_csv("public_data/processed_data.csv")
 
 # %%
 df.head()
