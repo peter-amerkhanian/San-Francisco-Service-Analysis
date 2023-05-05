@@ -2,6 +2,7 @@ import pickle
 from us import states
 from census import Census
 import geopandas as gpd
+import pandas as pd
 import requests
 import json
 import os
